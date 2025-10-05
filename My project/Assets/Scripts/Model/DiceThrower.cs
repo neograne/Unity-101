@@ -9,6 +9,12 @@ public class DiceThrower : MonoBehaviour
     [SerializeField] private Spawner spawner;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private UIController uIController;
+
+    private void Awake()
+    {
+        uIController.throwButtonClicked.AddListener(OnThrow);
+    }
 
     private void OnEnable()
     {
@@ -39,5 +45,10 @@ public class DiceThrower : MonoBehaviour
         Debug.Log("Кубики подброшены");
 
         scoreManager?.StartScoringAfterThrow();
+    }
+
+    private void OnDestroy()
+    {
+        uIController.throwButtonClicked.RemoveListener(OnThrow);
     }
 }
